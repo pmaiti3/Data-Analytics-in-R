@@ -165,3 +165,23 @@ summary(placed_model1)
 #Multiple R-squared:  0.6068,	Adjusted R-squared:  0.5543
 
 
+
+
+#########################################
+#                                       #  
+#  COMPARISON WITH UNPLACED STUDENTS    #
+#                                       #
+#########################################
+
+
+unplaced <- subset(mba, mba$salary==0)
+placed <- revised_mba
+
+attach(unplaced)
+table(gmat_tot, satis)
+xtabs(satis ~ gmat_tot + age + sex)
+
+#Chi-squared tests 
+chisq.test(table(gmat_tot, satis))
+chisq.test(table(gmat_tot, age))
+chisq.test(table(gmat_tot, work_yrs))
