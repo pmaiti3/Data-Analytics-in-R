@@ -96,3 +96,72 @@ var(mba)
 #Covariance matrix
 cov(revised_mba)
 cov(mba)
+
+
+#########################################
+#                                       #  
+#      STUDY OF PLACED STUDENTS         #
+#                                       #
+#########################################
+
+attach(revised_mba)
+
+#Model 1: No interaction term
+#=============================
+placed_model <- lm(salary ~ age + sex + gmat_tot + quarter + work_yrs + frstlang, data = revised_mba)
+summary(placed_model)
+step(placed_model)
+
+
+
+#Chi-sq tests to check model dependances
+#=======================================
+
+#Test 1
+chisq.test(table(salary,age))
+#Test 2
+chisq.test(table(salary,gmat_tot))
+#Test 3
+chisq.test(table(salary,gmat_tpc))
+#Test 4
+chisq.test(table(salary,s_avg))
+#Test 5
+chisq.test(table(salary,f_avg))
+#Test 6
+chisq.test(table(salary,work_yrs))
+#Test 7
+chisq.test(table(salary,frstlang))
+
+
+
+#T-Tests
+#=======
+t.test(salary, work_yrs)
+t.test(salary, frstlang)
+
+
+
+#Regression Model 2:Adding interaction terms
+#===========================================
+placed_model1 <- lm(salary ~ age + sex + age:sex + gmat_tot + quarter + work_yrs + frstlang, data = revised_mba)
+summary(placed_model1)
+#RSE: 13390 on 95 degrees of freedom
+
+placed_model1 <- lm(salary ~ age + sex + age:sex + gmat_tot + age:gmat_tot + quarter + work_yrs + frstlang, data = revised_mba)
+summary(placed_model1)
+#RSE: 13160 on 94 degrees of freedom
+
+placed_model1 <- lm(salary ~ age + sex + age:sex + gmat_tot + age:gmat_tot + age:sex:gmat_tot + quarter + work_yrs + frstlang, data = revised_mba)
+summary(placed_model1)
+#RSE: 12870 on 93 degrees of freedom
+
+placed_model1 <- lm(salary ~ age + sex + age:sex + gmat_tot + age:gmat_tot + age:sex:gmat_tot + quarter + age:quarter:sex + work_yrs + age:work_yrs + frstlang, data = revised_mba)
+summary(placed_model1)
+#RSE: 12330 on 91 degrees of freedom
+
+placed_model1 <- lm(salary ~ age + sex + age:sex + gmat_tot + age:gmat_tot + age:sex:gmat_tot + quarter + age:quarter:sex + work_yrs + age:work_yrs + age:work_yrs:sex + frstlang, data = revised_mba)
+summary(placed_model1)
+#RSE: 11930 on 90 degrees of freedom
+#Multiple R-squared:  0.6068,	Adjusted R-squared:  0.5543
+
+
