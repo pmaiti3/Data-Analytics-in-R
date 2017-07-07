@@ -1,3 +1,13 @@
+
+
+# Project Title: Hotel Room Pricing In The Indian Market
+# NAME: Pratyusha Maiti
+# EMAIL: pratyusha.maiti@gmail.com
+# COLLEGE: Jadavpur University
+
+
+
+
 getwd()
 setwd("E:/DATA ANALYTICS INTERNSHIP/Github/Data-Analytics-in-R")
 
