@@ -62,3 +62,30 @@ axis(side = 1, las = 2, labels = names(xLabels),
 #Population
 #Free WiFi
 #Metro City
+
+attach(cities.df)
+cor.test(RoomRent, StarRating, method = "pearson", conf.level = 0.95)
+#Cor value: 0.3693734
+cor.test(RoomRent, Airport, method = "pearson", conf.level = 0.95)
+cor.test(RoomRent, HasSwimmingPool, method = "pearson", conf.level = 0.95)
+#Cor value: 0.3116577 
+cor.test(RoomRent, HotelCapacity, method = "pearson", conf.level = 0.95)
+#Cor value: 0.1578733 
+cor.test(RoomRent, HotelPincode, method = "pearson", conf.level = 0.95)
+cor.test(RoomRent, IsTouristDestination, method = "pearson", conf.level = 0.95)
+#Cor value: 0.122503 
+cor.test(RoomRent, CityRank, method = "pearson", conf.level = 0.95)
+#Cor value: 0.09398553
+cor.test(RoomRent, FreeBreakfast, method = "pearson", conf.level = 0.95)
+cor.test(RoomRent, Population, method = "pearson", conf.level = 0.95)
+cor.test(RoomRent, FreeWifi, method = "pearson", conf.level = 0.95)
+cor.test(RoomRent, IsMetroCity, method = "pearson", conf.level = 0.95)
+
+#From Correlation test, top five important factors:
+#Star Rating
+#Swimming Pool
+#Hotel Capacity
+#Tourist Destination
+#City Rank
+
+
