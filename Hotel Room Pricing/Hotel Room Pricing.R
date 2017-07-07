@@ -29,11 +29,11 @@ table(cities.df$Date)
 table(cities.df$CityName)
 table(cities.df$HotelDescription)
 
-#########################################
-#                                       #  
-#    IDENTIFYING DEPENDENT VARIABLES    #
-#                                       #
-#########################################
+###################################################
+#                                                 #  
+#    IDENTIFYING IMPORTANT DEPENDENT VARIABLES    #
+#                                                 #
+###################################################
 
 #Use boruta feature selection algorithm to identify important independent variables
 library(Boruta)
@@ -89,3 +89,47 @@ cor.test(RoomRent, IsMetroCity, method = "pearson", conf.level = 0.95)
 #City Rank
 
 
+#########################
+#SELECTED VARIABLES:
+#star Rating
+#Tourist Destination
+#Hotel Capacity
+#########################
+
+
+
+###################################################
+#                                                 #  
+#    VISUALISING IMPORTANT DEPENDENT VARIABLES    #
+#                                                 #
+###################################################
+
+##Individual visualisation
+library(ggplot2)
+ggplot(cities.df, aes(x=RoomRent)) + geom_histogram() + scale_x_continuous(lim = c(0, 30000))
+ggplot(cities.df, aes(x=StarRating)) + geom_histogram()
+table(cities.df$IsTouristDestination)
+ggplot(cities.df, aes(x=HotelCapacity)) + geom_histogram()
+
+
+##Pairwise plots
+attach(cities.df)
+plot(RoomRent, StarRating, main = "Room rent vs Star rating")
+abline(lm(RoomRent~StarRating), col="red")
+plot(RoomRent, IsTouristDestination, main = "Room rent vs Star rating")
+plot(RoomRent, HotelCapacity, main = "Room rent vs Star rating")
+
+
+##Corrgrams
+library(Hmisc)
+library(car)
+library(corrgram)
+corrgram(cities.df[,c("StarRating", "IsTouristDestination", "HotelCapacity")], order=TRUE,
+         main="Room Pricing",
+         lower.panel=panel.pts, upper.panel=panel.pie,
+         diag.panel=panel.minmax, text.panel=panel.txt)
+
+##Variance-Covariance Matrix
+roomrents <- cities.df[c(6, 12, 19)]
+var(roomrents)
+cov(roomrents)
