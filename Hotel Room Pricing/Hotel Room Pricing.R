@@ -216,7 +216,7 @@ model3 <- lm(RoomRent~StarRating+IsTouristDestination+HasSwimmingPool+HotelCapac
 summary(model3)
 
 #Star Rating, Tourist Destination, Hotel Capacity, Swimming Pool, Airport
-model4 <- lm(RoomRent~StarRating+IsTouristDestination+HasSwimmingPool+HotelCapacity+Airport, data = cities.df)
+model4 <- lm(RoomRent~StarRating+IsTouristDestination+HasSwimmingPool+HotelCapacity+Airport-1, data = cities.df)
 summary(model4)
 
 #Star Rating,Airport,Swimming Pool,Hotel Capacity ,Hotel Pincode,Destination,City Rank,Free breakfast,Population,Free WiFi, Metro City
@@ -224,5 +224,21 @@ model5 <- lm(RoomRent~StarRating+Airport+HasSwimmingPool+HotelCapacity+HotelPinc
 summary(model5)
 
 #Adding terms to improve model
-model6 <- lm(RoomRent~StarRating+StarRating:HasSwimmingPool+StarRating:FreeWifi+HasSwimmingPool:FreeWifi+StarRating:HasSwimmingPool:FreeWifi+Airport+HasSwimmingPool+HotelCapacity+HotelCapacity:StarRating+IsTouristDestination+CityRank+Population+FreeWifi+IsMetroCity)
+model6 <- lm(RoomRent~StarRating+StarRating:HasSwimmingPool+StarRating:FreeWifi+HasSwimmingPool:FreeWifi+StarRating:HasSwimmingPool:FreeWifi+Airport-1+HasSwimmingPool+HotelCapacity+HotelCapacity:StarRating+IsTouristDestination+CityRank+Population+FreeWifi+IsMetroCity)
 summary(model6)
+model6$coefficients
+
+
+#StarRating                             Airport                     HasSwimmingPool 
+#1.004182e+03                        9.320143e+00                       -7.217968e+03 
+#HotelCapacity                IsTouristDestination                            CityRank 
+#4.058440e+00                        1.860006e+03                        8.873910e+00 
+#Population                            FreeWifi                         IsMetroCity 
+#-9.793509e-05                       -4.553251e+03                       -7.618424e+02 
+#StarRating:HasSwimmingPool                 StarRating:FreeWifi            HasSwimmingPool:FreeWifi 
+#2.547979e+03                        1.444784e+03                       -7.758756e+02 
+#StarRating:HotelCapacity StarRating:HasSwimmingPool:FreeWifi 
+#-3.883444e+00                        3.421689e+02 
+
+
+#Generated model has a Residual standard error: 6555 on 13218 degrees of freedom, Multiple R-squared:  0.4873,	Adjusted R-squared:  0.4868 
