@@ -173,3 +173,26 @@ qplot(RoomRent, Airport,
       main = "Room Rent vs distance from airport",
       ylab = "Distance from Airport",
       colour = HasSwimmingPool)
+
+
+
+###################################################
+#                                                 #  
+#       HYPOTHESIS ON ROOM RENT DEPENDENCE        #
+#                                                 #
+###################################################
+
+#1.Average RoomRent in hotels having swimming pool is more than that which don't have.
+t.test(RoomRent~HasSwimmingPool,data = hotel.df, alternative="less")
+
+#2.Average RoomRent in hotels with high star rating is high as compared to one which has less star rating.
+t.test(hotel.df$RoomRent,hotel.df$StarRating)
+
+#3.Average RoomRent in hotels providing Free Breakfast is more than that which don't provide.
+t.test(RoomRent~FreeBreakfast, data = hotel.df, alternative="less")
+
+#4.Average RoomRent in metro cities hotels is more than that of non metro cities.
+t.test(RoomRent~IsMetroCity, data = hotel.df, alternative="less")
+
+#5.Average RoomRent in hotels having more hotel capacity is more compared to one with less capacity.
+t.test(hotel.df$RoomRent,hotel.df$HotelCapacity)
