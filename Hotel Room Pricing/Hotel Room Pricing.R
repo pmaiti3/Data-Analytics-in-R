@@ -143,3 +143,33 @@ corrgram(cities.df[,c("StarRating", "IsTouristDestination", "HotelCapacity")], o
 roomrents <- cities.df[c(6, 12, 19)]
 var(roomrents)
 cov(roomrents)
+
+
+###################################################
+#                                                 #  
+#      TESTING FOR OTHER DEPENDENT VARIABLES      #
+#                                                 #
+###################################################
+
+##Room Rate dependence on Weekend or Not
+table(cities.df$IsWeekend)
+barplot(table(cities.df$IsWeekend), main="Distribution of Weekend", xlab = "Weekend or not")
+aggregate(RoomRent ~ IsWeekend, data=cities.df,mean)
+boxplot(RoomRent~IsWeekend,data=cities.df[which(cities.df$RoomRent<100000),], main="Room rent vs. IsWeekend",xlab="Room Rent", col=c("red","blue"),horizontal=TRUE)
+
+##RoomRent on different dates
+table(cities.df$Date)
+aggregate(RoomRent ~ Date, data=cities.df,mean)
+boxplot(RoomRent~Date,data=cities.df[which(cities.df$RoomRent<100000),], main="Room rent vs. Date",xlab="Room Rent",horizontal=TRUE)
+
+##RoomRent on whether Metro City or not
+table(cities.df$IsMetroCity)
+aggregate(RoomRent~IsMetroCity, data = cities.df, mean)
+
+##RoomRent on whether close to Airport or not
+aggregate(RoomRent~Airport, data = cities.df, mean)
+qplot(RoomRent, Airport,
+      data=cities.df[which(cities.df$RoomRent<100000),],
+      main = "Room Rent vs distance from airport",
+      ylab = "Distance from Airport",
+      colour = HasSwimmingPool)
