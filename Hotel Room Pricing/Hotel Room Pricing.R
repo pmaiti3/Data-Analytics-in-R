@@ -185,14 +185,44 @@ qplot(RoomRent, Airport,
 #1.RoomRent in hotels having swimming pool is more than that which don't have.
 t.test(RoomRent~HasSwimmingPool,data = cities.df, alternative="less")
 
-#2.RoomRent in hotels with high star rating is higher.
+#2.RoomRent in hotels closer to airport is higher.
+t.test(cities.df$RoomRent,cities.df$Airport)
+
+#3.RoomRent in hotels with high star rating is higher.
 t.test(cities.df$RoomRent,cities.df$StarRating)
 
-#3.RoomRent in hotels providing Free Breakfast is higher.
+#4.RoomRent in hotels providing Free Breakfast is higher.
 t.test(RoomRent~FreeBreakfast, data = cities.df, alternative="less")
 
-#4.RoomRent in metro cities hotels is higher.
+#5.RoomRent in metro cities hotels is higher.
 t.test(RoomRent~IsMetroCity, data = cities.df, alternative="less")
 
-#5.Average RoomRent in hotels having more hotel capacity is more compared to one with less capacity.
+#6.Average RoomRent in hotels having more hotel capacity is more compared to one with less capacity.
 t.test(cities.df$RoomRent,cities.df$HotelCapacity)
+
+
+##Regression models to test the dependence of room rents on various factors
+
+#Star Rating, Tourist Destination, Hotel Capacity
+model1 <- lm(RoomRent~StarRating+IsTouristDestination+HotelCapacity, data = cities.df)
+summary(model1)
+
+#Star Rating, Swimming Pool, Hotel Capacity
+model2 <- lm(RoomRent~StarRating+HasSwimmingPool+HotelCapacity, data = cities.df)
+summary(model2)
+
+#Star Rating, Tourist Destination, Hotel Capacity, Swimming Pool
+model3 <- lm(RoomRent~StarRating+IsTouristDestination+HasSwimmingPool+HotelCapacity, data = cities.df)
+summary(model3)
+
+#Star Rating, Tourist Destination, Hotel Capacity, Swimming Pool, Airport
+model4 <- lm(RoomRent~StarRating+IsTouristDestination+HasSwimmingPool+HotelCapacity+Airport, data = cities.df)
+summary(model4)
+
+#Star Rating,Airport,Swimming Pool,Hotel Capacity ,Hotel Pincode,Destination,City Rank,Free breakfast,Population,Free WiFi, Metro City
+model5 <- lm(RoomRent~StarRating+Airport+HasSwimmingPool+HotelCapacity+HotelPincode+IsTouristDestination+CityRank+Population+FreeWifi+IsMetroCity)
+summary(model5)
+
+#Adding terms to improve model
+model6 <- lm(RoomRent~StarRating+StarRating:HasSwimmingPool+StarRating:FreeWifi+HasSwimmingPool:FreeWifi+StarRating:HasSwimmingPool:FreeWifi+Airport+HasSwimmingPool+HotelCapacity+HotelCapacity:StarRating+IsTouristDestination+CityRank+Population+FreeWifi+IsMetroCity)
+summary(model6)
